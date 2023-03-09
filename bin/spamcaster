@@ -1,12 +1,15 @@
 #!/usr/bin/env ruby
 
 require_relative '../lib/spamcaster/notifier'
+require_relative '../lib/spamcaster/parts_bin'
 require_relative '../lib/spamcaster/request'
 require 'json'
 require 'sinatra'
 require 'sinatra/namespace'
 
 class SpamcasterApp < Sinatra::Application
+  parts_bin = Spamcaster::PartsBin.new
+  
   namespace '/api/v1' do
     get '/' do
       message = "{message: This is the API index. " +
@@ -20,7 +23,8 @@ class SpamcasterApp < Sinatra::Application
       request = Spamcaster::Request.new body
       case request.spam?
       when true
-        notification = Spamcaster::Notifier.notify(:slack, request.email_address)
+        service_url  = parts_bin.service_url
+        notification = Spamcaster::Notifier.notify(:slack, request.email_address, service_url)
         message      = "{message: #{notification}}"
         JSON.generate message
       else

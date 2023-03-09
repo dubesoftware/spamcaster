@@ -3,18 +3,18 @@ require 'json'
 
 module Spamcaster
   class Notifier    
-    def self.notify(type, recipient)
-      send(type, recipient)
+    def self.notify(type, recipient, service_url)
+      send(type, recipient, service_url)
     end
     
     private
       
-      def self.send(type, recipient)
+      def self.send(type, recipient, service_url)
         case type
         when :email
           email recipient
         when :slack
-          slack recipient
+          slack(recipient, service_url)
         end
       end
       
@@ -30,9 +30,9 @@ module Spamcaster
         "Email notification sent to #{recipient}!"
       end
       
-      def self.slack(recipient)
-        HTTPX.post(SLACK_WEBHOOK_URL, :json => slack_json_payload(recipient)[:json])
-        "Slack notification for #{recipient} sent to Spamcaster's Slack channel!"
+      def self.slack(recipient, service_url)
+        HTTPX.post(service_url, :json => slack_json_payload(recipient)[:json])
+        "Notification for #{recipient} sent to Spamcaster's channel!"
       end
       
       # Etc. Define methods to send other notification types e.g. SMS here
