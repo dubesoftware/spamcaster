@@ -1,5 +1,5 @@
 module Spamcaster
-  module PartsBin
+  class PartsBin
     SLK_WHK_SUBDOMAIN = 'hooks'
     SLK_WHK_DOMAIN    = 'slack'
     SLK_WHK_EXTENSION = '.com'
