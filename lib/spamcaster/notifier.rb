@@ -2,10 +2,7 @@ require 'httpx'
 require 'json'
 
 module Spamcaster
-  class Notifier
-    # N.B: The Webhook URL would NOT live here in a production application
-    SLACK_WEBHOOK_URL = 'https://hooks.slack.com/services/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'
-    
+  class Notifier    
     def self.notify(type, recipient)
       send(type, recipient)
     end
