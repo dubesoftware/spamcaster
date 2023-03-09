@@ -17,10 +17,10 @@ class SpamcasterApp < Sinatra::Application
     
     post '/spamcheck' do
       body    = JSON.parse request.body.read
-      request = SpamCaster::Request.new body
+      request = Spamcaster::Request.new body
       case request.spam?
       when true
-        notification = SpamCaster::Notifier.notify(:slack, request.email_address)
+        notification = Spamcaster::Notifier.notify(:slack, request.email_address)
         message      = "{message: #{notification}}"
         JSON.generate message
       else

@@ -1,4 +1,4 @@
-module SpamCaster
+module Spamcaster
   class Request
     attr_reader :email_address, :payload, :spam
   
