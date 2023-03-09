@@ -1,7 +1,7 @@
 require 'httpx'
 require 'json'
 
-module Spamcaster
+module SpamCaster
   class Notifier
     # N.B: The Webhook URL would NOT live here in a production application
     SLACK_WEBHOOK_URL = 'https://hooks.slack.com/services/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'
