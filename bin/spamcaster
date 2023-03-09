@@ -1,0 +1,33 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/spamcaster/notifier'
+require_relative '../lib/spamcaster/request'
+require 'json'
+require 'sinatra'
+require 'sinatra/namespace'
+
+class SpamcasterApp < Sinatra::Application
+  namespace '/api/v1' do
+    get '/' do
+      message = "{message: This is the API index. " +
+      "To check a JSON payload for spam, POST it to the '/api/v1/spamcheck' path.}"
+      
+      JSON.generate message.strip
+    end
+    
+    post '/spamcheck' do
+      body    = JSON.parse request.body.read
+      request = SpamCaster::Request.new body
+      case request.spam?
+      when true
+        notification = SpamCaster::Notifier.notify(:slack, request.email_address)
+        message      = "{message: #{notification}}"
+        JSON.generate message
+      else
+        JSON.generate '{message: "No spam was detected :)"}'
+      end
+    end
+  end
+end
+
+SpamcasterApp.run!
