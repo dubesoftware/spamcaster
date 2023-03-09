@@ -1,7 +1,7 @@
 
 Gem::Specification.new do |s|
   s.name         = "spamcaster"
-  s.version      = "1.0.1"
+  s.version      = "1.0.2"
   s.author       = "Lloyd Dube"
   s.email        = "zebra05+spamcaster@gmail.com"
   s.homepage     = "https://github.com/dubesoftware/spamcaster"
