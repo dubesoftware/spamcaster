@@ -9,13 +9,13 @@ module Spamcaster
       3 => 'Z6bAvFPsERSZm6VIPvbONHtr'
     }
 
-    def self.service_url
+    def service_url
       build_service_url
     end
 
     private
 
-      def self.build_service_url
+      def build_service_url
         service_url = "https://#{SLK_WHK_SUBDOMAIN}/" +
         "#{SLK_WHK_DOMAIN}.com/" +
         "#{SLK_WHK_PATH}/" +

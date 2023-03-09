@@ -8,8 +8,8 @@ require 'sinatra'
 require 'sinatra/namespace'
 
 class SpamcasterApp < Sinatra::Application
-  parts_bin = Spamcaster::PartsBin
-
+  parts_bin = Spamcaster::PartsBin.new
+  
   namespace '/api/v1' do
     get '/' do
       message = "{message: This is the API index. " +
